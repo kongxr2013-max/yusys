@@ -4,13 +4,158 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yusys Technologies — Banking Infrastructure for the Modern Era</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,700&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
+<style>
+/* Fraunces */
+@font-face {
+  font-family: 'Fraunces';
+  src: url('fonts/Fraunces-VariableFont_SOFT,WONK,opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Fraunces';
+  src: url('fonts/Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+/* DM Sans */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('fonts/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/* IBM Plex Mono */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fonts/IBMPlexMono-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+
+/* ── COOKIE CONSENT BANNER ── */
+#cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 8000;
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 16px 32px;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+  transform: translateY(0);
+  transition: transform 0.3s var(--ease);
+}
+#cookie-banner.hidden { transform: translateY(110%); }
+#cookie-banner p {
+  flex: 1; font-size: 13px; color: rgba(255,255,255,0.75);
+  line-height: 1.6; min-width: 240px; margin: 0;
+}
+#cookie-banner p a { color: var(--teal-lt); text-decoration: underline; cursor: pointer; }
+.cookie-btn-accept {
+  background: var(--teal); color: white; border: none;
+  padding: 9px 22px; border-radius: var(--r); font-size: 13px;
+  font-weight: 600; font-family: var(--font-sans); cursor: pointer;
+  white-space: nowrap; flex-shrink: 0;
+}
+.cookie-btn-decline {
+  background: transparent; color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 9px 18px; border-radius: var(--r); font-size: 13px;
+  font-weight: 500; font-family: var(--font-sans); cursor: pointer;
+  white-space: nowrap; flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  #cookie-banner { padding: 16px 18px; gap: 12px; }
+  #cookie-banner p { font-size: 12px; }
+}
+
+/* ── LEGAL MODALS ── */
+.legal-modal-bg {
+  position: fixed; inset: 0; z-index: 4000;
+  background: rgba(11,31,74,0.55);
+  backdrop-filter: blur(8px);
+  display: none; align-items: flex-start; justify-content: center;
+  padding: 40px 20px; overflow-y: auto;
+}
+.legal-modal-bg.open { display: flex; animation: fadein 0.2s ease; }
+.legal-modal {
+  background: white; border-radius: var(--r-xl);
+  max-width: 760px; width: 100%;
+  box-shadow: var(--shadow-xl);
+  position: relative; margin: auto;
+  overflow: hidden;
+  animation: slideup 0.3s var(--ease);
+}
+.legal-modal-header {
+  background: var(--navy); padding: 28px 32px;
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.legal-modal-header h2 {
+  font-family: var(--font-serif); font-size: 20px;
+  font-weight: 700; color: white; margin: 0;
+}
+.legal-modal-close {
+  background: rgba(255,255,255,0.12); border: none; color: white;
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+  font-size: 16px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.15s;
+}
+.legal-modal-close:hover { background: rgba(255,255,255,0.22); }
+.legal-modal-body {
+  padding: 36px 40px 40px; max-height: 70vh; overflow-y: auto;
+}
+.legal-modal-body h3 {
+  font-family: var(--font-sans); font-weight: 700; font-size: 15px;
+  color: var(--navy); margin: 28px 0 10px;
+}
+.legal-modal-body h3:first-child { margin-top: 0; }
+.legal-modal-body p, .legal-modal-body li {
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.8;
+}
+.legal-modal-body p { margin-bottom: 14px; }
+.legal-modal-body p:last-child { margin-bottom: 0; }
+.legal-modal-body ul { padding-left: 18px; margin: 8px 0 12px; }
+.legal-modal-body li { margin-bottom: 5px; }
+.legal-modal-body a { color: var(--blue-2); }
+.legal-modal-body table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.legal-modal-body th {
+  padding: 10px 14px; background: var(--surface);
+  color: var(--navy); font-weight: 600; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.legal-modal-body td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  color: var(--ink-2); vertical-align: top;
+}
+.legal-modal-body tr:last-child td { border-bottom: none; }
+.legal-modal-meta {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-4); margin-bottom: 24px;
+}
+.legal-flag-box {
+  background: var(--surface); border: 1px solid var(--border-2);
+  border-radius: var(--r); padding: 16px 18px; margin-bottom: 12px;
+}
+.legal-flag-box strong { display: block; color: var(--navy); font-size: 13.5px; margin-bottom: 5px; }
+</style>
+<script src="js/fuse.min.js"></script>
 <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
+<!-- COOKIE CONSENT BANNER -->
+<div id="cookie-banner">
+  <p>We use essential cookies to make this site work, and load fonts and search libraries from Google &amp; Cloudflare CDN. We do not use tracking or advertising cookies. By continuing, you accept our <a onclick="openLegalModal('privacyModal')">Privacy Policy</a>.</p>
+  <button class="cookie-btn-accept" onclick="acceptCookies()">Accept</button>
+  <button class="cookie-btn-decline" onclick="declineCookies()">Manage</button>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -3865,7 +4010,7 @@
     </div>
     <div class="footer-bottom">
       <div>© 2026 Yusys Technologies Co., Ltd. All rights reserved. · Beijing &amp; Zhuhai, China</div>
-      <div class="footer-bottom-links" style="display:none"><span style="cursor:default;color:var(--ink-4)">Privacy Policy</span><span style="cursor:default;color:var(--ink-4)">Terms of Service</span><span style="cursor:default;color:var(--ink-4)">Cookie Policy</span><span style="cursor:default;color:var(--ink-4)">Sitemap</span><span style="cursor:default;color:var(--ink-4)">Accessibility</span></div>
+      <div class="footer-bottom-links"><a onclick="openLegalModal('privacyModal')" style="cursor:pointer">Privacy Policy</a><a onclick="openLegalModal('copyrightModal')" style="cursor:pointer">Copyright Statement</a></div>
     </div>
     <div style="height:24px"></div>
   </footer>
@@ -3980,6 +4125,117 @@
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js">
+
+/* ── COOKIE CONSENT ── */
+(function() {
+  var consent = localStorage.getItem('yusys_cookie_consent');
+  if (consent) {
+    var b = document.getElementById('cookie-banner');
+    if (b) b.classList.add('hidden');
+  }
+})();
+function acceptCookies() {
+  localStorage.setItem('yusys_cookie_consent', 'accepted');
+  var b = document.getElementById('cookie-banner');
+  if (b) b.classList.add('hidden');
+}
+function declineCookies() {
+  localStorage.setItem('yusys_cookie_consent', 'essential_only');
+  var b = document.getElementById('cookie-banner');
+  if (b) b.classList.add('hidden');
+  openLegalModal('privacyModal');
+}
+
+/* ── LEGAL MODALS ── */
+function openLegalModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+}
+function closeLegalModal(id, e) {
+  if (e && e.target !== document.getElementById(id)) return;
+  var el = document.getElementById(id);
+  if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    ['privacyModal','copyrightModal'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.classList.contains('open')) {
+        el.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+});
+
+</script>
+
+
+
+<!-- ═══ PRIVACY STATEMENT MODAL ═══ -->
+<div id="privacyModal" class="legal-modal-bg" onclick="closeLegalModal('privacyModal',event)">
+  <div class="legal-modal">
+    <div class="legal-modal-header">
+      <h2>🔒 Privacy Policy</h2>
+      <button class="legal-modal-close" onclick="closeLegalModal('privacyModal')">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p class="legal-modal-meta">Last updated: May 1, 2026</p>
+      <p>Yusys Technologies Co., Ltd. (hereinafter referred to as "Yusys") is committed to respecting and protecting your privacy. This commitment forms the foundation of our business activities and is regarded as our social responsibility and obligation. Consequently, when you visit our website, we will make every reasonable effort to help you maintain control over your personal data on the internet.</p>
+
+      <h3>1. Collection of Your Information</h3>
+      <p>To provide you with better services, we may request your name (or designation) and contact details in circumstances such as when you make an inquiry or submit a suggestion, thereby enabling us to provide you with rapid, accurate, and high-quality service.</p>
+
+      <h3>2. Use of Your Information</h3>
+      <p>The information you provide will be kept strictly confidential. Yusys will use your information solely to better understand your needs and to provide you with improved services. In certain instances, we may also use your information to contact you for market research or to provide you with market information which we believe may be of interest to you.</p>
+
+      <h3>3. Control Over Your Information</h3>
+      <p>When you provide your information to us through registration or other means, Yusys will not sell or rent your information to others. Your permission is always of paramount priority. We will not disclose your information to any third party that does not represent us, unless required by laws, regulations, or regulatory authorities in accordance with the law. We will not arbitrarily use or share the information you have provided to us in a manner unrelated to the purposes described above without your prior knowledge and consent.</p>
+
+      <h3>4. Access to or Modification of Your Information</h3>
+      <p>To protect your privacy and security, Yusys will take reasonable measures to verify your identity before granting you access to or the ability to modify your information. We strive to maintain the accuracy of your information and have provided you with the capability to access your information and registration data online, allowing you to update or modify your information. Please note that links provided on our website to third-party websites are offered solely as a convenience to you. If you use these links, you will leave the website of Yusys Technologies Co., Ltd., and such third-party websites may collect personally identifiable information about you. Therefore, our website does not endorse, nor makes any representations or warranties regarding, any third-party websites, their content, software, other products, materials, or any results obtained from using them.</p>
+
+      <h3>5. Security of Your Information</h3>
+      <p>We are committed to diligently protecting your data against loss, misuse, and unauthorized access, disclosure, alteration, or destruction. Your data will be stored on servers controlled by passwords, thus any access to your data will be restricted and strictly protected.</p>
+
+      <h3>6. Disclosure of Your Information</h3>
+      <p>When disclosure of your information is required by regulatory authorities in accordance with legal procedures, Yusys will provide such information as mandated or for public security purposes. Under such circumstances, Yusys shall be exempt from liability, and you shall not hold Yusys accountable in any way.</p>
+
+      <h3>7. Use of Cookies</h3>
+      <p>With the application of new internet technologies, we offer a fully personalized experience to its visitors. We may use Cookie technology to analyze webpage usage patterns. Cookies are small files which, when placed on your device, enable us to provide certain features and functionality. The use of this technology does not mean that we automatically acquire any information about you. While Yusys may determine the type of computer you use, the primary purpose of using Cookies is to enhance your experience when visiting the our website. You retain complete autonomy to set your web browser (e.g., Microsoft Internet Explorer or Netscape Navigator) to notify you of Cookie placement requests, or to refuse Cookies entirely. You may also delete files containing Cookies; these files are saved as part of your internet browser.</p>
+
+      <h3>8. Revisions to This Statement</h3>
+      <p>The right to interpret this Statement is vested in Yusys Technologies Co., Ltd. Yusys reserves the right to update and amend this Privacy Statement at any time. In the event of material updates or changes to this Statement, Yusys will notify users by posting an announcement in a prominent position on its website.</p>
+
+      <h3>9. Governing Law</h3>
+      <p>Any disputes arising from this Statement or the use of this website shall be governed by and interpreted in accordance with the laws of the People's Republic of China.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COPYRIGHT STATEMENT MODAL ═══ -->
+<div id="copyrightModal" class="legal-modal-bg" onclick="closeLegalModal('copyrightModal',event)">
+  <div class="legal-modal">
+    <div class="legal-modal-header">
+      <h2>© Copyright Statement</h2>
+      <button class="legal-modal-close" onclick="closeLegalModal('copyrightModal')">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p class="legal-modal-meta">Last updated: May 1, 2026</p>
+      <p>Yusys Technologies Co., Ltd. exclusively owns the copyright to all materials contained within the relevant pages of this website, or jointly owns the copyright to such materials with the respective content providers. All domain name, trademarks, page visual designs, texts, videos, audios, charts, and images published on this website are protected by applicable trademark and copyright laws.</p>
+
+      <p>No media, website, or individual may reproduce, link, repost or otherwise copy or publish any text, images, audio-visual materials, domain name trademarks, page visual designs or other content from this website in any form without the prior written permission of the Marketing Department of Yusys Technologies Co., Ltd.</p>
+
+      <p>Media outlets and websites that have been authorized by this website must indicate "Source: Portal Website of Yusys Technologies Co., Ltd." when using downloaded materials. Parties in violation shall bear legal responsibility in accordance with the law.</p>
+
+      <p>The articles reproduced by our company are current-event articles on political and economic issues that have already been published on publicly accessible networks. They are reproduced solely for market research, discussion, and exchange purposes (with sources duly indicated). Should any objections arise, please promptly contact this website. We will, in accordance with relevant laws, remove or otherwise handle the articles as required.</p>
+
+      <p>Our company has consistently upheld a strong commitment to intellectual property protection and adheres to the provisions of all relevant Chinese intellectual property laws, regulations, and binding normative instruments. If any party believes that content published on this website may potentially infringe upon their right of communication through information networks, they should promptly notify our company via email, telephone, or written notice, providing corresponding proof of identity, proof of ownership, and detailed evidence of infringement. Upon receipt of the aforementioned legal documents, we will expeditiously remove the relevant content in accordance with the law and take appropriate actions.</p>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
