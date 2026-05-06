@@ -395,7 +395,7 @@ const JOURNEY_DATA = [
   { year: 2010, phase: 'Rapid Growth', title: 'IDC No.1 in China banking IT', desc: 'Ranked No. 1 in market share among China\'s banking IT solution providers by IDC — the beginning of a sustained period of industry leadership.', pills: ['🥇 IDC No.1 China', '🏦 Banking IT leader'] },
   { year: 2012, phase: 'Rapid Growth', title: 'Privatisation from NASDAQ', desc: 'Completed the privatisation process and officially delisted from NASDAQ, setting the stage for a return to China\'s domestic capital markets.', pills: ['🔄 NASDAQ delisted', '🇨🇳 China re-focus'] },
   { year: 2014, phase: 'Second Take-off', title: 'Ecosystem expansion through M&A', desc: 'Acquired and established stakes in Tonggen Yuan, Yusys Jinshi, Zhuhai Jinlianan, Yusys Qirong, Shanghai Yuyi, Shanghai Pabei, and Beijing Youdi — continuously expanding the financial IT solution ecosystem.', pills: ['🛒 7 acquisitions', '🌐 Full-suite ecosystem'] },
-  { year: 2015, phase: 'Second Take-off', title: 'Red-chip restructuring & rebrand', desc: 'Completed red-chip return and multi-round restructuring. Formally launched share reform. In August, renamed Beijing Yusys Technologies Group Co., Ltd. — the name the company carries today.', pills: ['♻️ Red-chip return', '📛 Renamed Yusys Technologies'] },
+  { year: 2015, phase: 'Second Take-off', title: 'Red-chip restructuring & rebrand', desc: 'Completed red-chip return and multi-round restructuring. Formally launched share reform. In August, renamed Yusys Technologies Co., Ltd. — the name the company carries today.', pills: ['♻️ Red-chip return', '📛 Renamed Yusys Technologies'] },
   { year: 2016, phase: 'Second Take-off', title: 'Big data ecosystem & cloud push', desc: 'Sixth consecutive year ranked No.1 in China banking IT market share (IDC). Signed strategic cooperation with Transwarp (big data); established Beijing Hangyu Jinfu for asset and wealth management; aggressively pushed cloud services in banking.', pills: ['🥇 6th year IDC No.1', '☁️ Cloud strategy', '📊 Big data ecosystem'] },
   { year: 2017, phase: 'Second Take-off', title: 'IDC Pioneer & seventh year No.1', desc: 'Recognised as IDC China FinTech Pioneer TOP 25. Seventh consecutive year ranked No.1 in China banking IT solution market share (IDC). Awarded 2017 Grade-A Large Enterprise in systems integration.', pills: ['🚀 IDC FinTech Pioneer', '🥇 7 consecutive years No.1'] },
   { year: 2018, phase: 'Second Take-off', title: 'A-share listing on Shenzhen Stock Exchange', desc: 'In November, listed on China\'s A-share market (Stock Code: 300674, SZ) — a landmark moment completing the company\'s transformation into a publicly listed domestic financial technology group. Signed strategic partnerships with Ant Financial and H3C Group.', pills: ['📈 A-share: 300674', '🐜 Ant Financial partnership', '🤝 H3C Group'] },
@@ -1062,3 +1062,47 @@ function initNews() {
 
 document.addEventListener('DOMContentLoaded', function() { initNews(); });
 
+
+
+
+/* ── COOKIE CONSENT ── */
+(function() {
+  var consent = localStorage.getItem('yusys_cookie_consent');
+  if (consent) {
+    var b = document.getElementById('cookie-banner');
+    if (b) b.classList.add('hidden');
+  }
+})();
+function acceptCookies() {
+  localStorage.setItem('yusys_cookie_consent', 'accepted');
+  var b = document.getElementById('cookie-banner');
+  if (b) b.classList.add('hidden');
+}
+function declineCookies() {
+  localStorage.setItem('yusys_cookie_consent', 'essential_only');
+  var b = document.getElementById('cookie-banner');
+  if (b) b.classList.add('hidden');
+  openLegalModal('privacyModal');
+}
+
+/* ── LEGAL MODALS ── */
+function openLegalModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+}
+function closeLegalModal(id, e) {
+  if (e && e.target !== document.getElementById(id)) return;
+  var el = document.getElementById(id);
+  if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    ['privacyModal','copyrightModal'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.classList.contains('open')) {
+        el.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+});
