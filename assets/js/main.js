@@ -1122,7 +1122,7 @@ var NEWS_DATA = [
     type: 'whitepaper',
     date: '2025',
     sort: 202500,
-    icon: '📄',
+    icon: '<img src="images/newsroom1.jpg" style="width:344px;height:140px;display:block;">',
     color: '#0b1f4a',
     title: 'Business Innovation, Technology Empowerment: Banks Enter the Digital Era',
     excerpt: 'A strategic guide for banking leaders navigating digital transformation — AI adoption, data infrastructure, and the competitive dynamics reshaping financial services.',
