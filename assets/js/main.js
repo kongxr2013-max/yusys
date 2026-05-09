@@ -224,6 +224,9 @@ function go(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id)?.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.location.hash !== '#' + id) {
+    history.pushState(null, '', '#' + id);
+  }
   setTimeout(showPage, 60);
 }
 function goToSection(pageId, sectionId) {
@@ -239,7 +242,6 @@ function goToSection(pageId, sectionId) {
     window.scrollTo({ top: top, behavior: 'smooth' });
   }, 80);
 }
-
 /* Nav scroll */
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
